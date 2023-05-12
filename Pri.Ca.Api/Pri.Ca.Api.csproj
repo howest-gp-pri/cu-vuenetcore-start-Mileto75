@@ -29,9 +29,4 @@
     <ProjectReference Include="..\Pri.Ca.Infrastructure\Pri.Ca.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\images\Game\" />
-  </ItemGroup>
-
 </Project>

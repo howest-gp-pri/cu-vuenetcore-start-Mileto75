@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pri.Ca.Core", "Pri.Ca.Core\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pri.Ca.Infrastructure", "Pri.Ca.Infrastructure\Pri.Ca.Infrastructure.csproj", "{B76E548A-B372-4CE9-9E09-9B66C59FA45A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pri.Ca.Api", "Pri.Ca.Api\Pri.Ca.Api.csproj", "{B43CB9D6-31CF-40FC-8930-9C640D918AA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pri.Ca.Api", "Pri.Ca.Api\Pri.Ca.Api.csproj", "{B43CB9D6-31CF-40FC-8930-9C640D918AA9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pri.Vue.Web", "Pri.Vue.Web\Pri.Vue.Web.csproj", "{B9A17F89-EC21-45A4-8E2C-EE12FB4B45AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B43CB9D6-31CF-40FC-8930-9C640D918AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B43CB9D6-31CF-40FC-8930-9C640D918AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B43CB9D6-31CF-40FC-8930-9C640D918AA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9A17F89-EC21-45A4-8E2C-EE12FB4B45AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9A17F89-EC21-45A4-8E2C-EE12FB4B45AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9A17F89-EC21-45A4-8E2C-EE12FB4B45AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9A17F89-EC21-45A4-8E2C-EE12FB4B45AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

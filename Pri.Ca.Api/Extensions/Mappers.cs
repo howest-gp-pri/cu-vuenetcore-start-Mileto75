@@ -8,8 +8,11 @@ namespace Pri.Ca.Api.Extensions
     public static class Mappers
     {
         //extension
-        public static GameResponseDto MaptoDto(this Game game)
+        public static GameResponseDto MaptoDto(this Game game,IHttpContextAccessor httpContextAccessor)
         {
+            var scheme = httpContextAccessor.HttpContext.Request.Scheme;
+            var host = httpContextAccessor.HttpContext.Request.Host;
+            var path = $"{scheme}://{host}/images/{typeof(Game).Name}";
             return new GameResponseDto
             {
                 Id = game.Id,
@@ -20,16 +23,16 @@ namespace Pri.Ca.Api.Extensions
                     Id = c.Id,
                     Name = c.Name,
                 }),
-                Image = game.Image,
+                Image = $"{path}/{game.Image ?? "placeholder.jpg"}",
 
             };
         }
         //map from IEnumerable<Game> => GamesresponseDto
-        public static GamesResponseDto MapToDto(this IEnumerable<Game> games)
+        public static GamesResponseDto MapToDto(this IEnumerable<Game> games,IHttpContextAccessor httpContextAccessor)
         {
             return new GamesResponseDto
             {
-                Games = games.Select(g => g.MaptoDto())
+                Games = games.Select(g => g.MaptoDto(httpContextAccessor))
             };
         }
     }

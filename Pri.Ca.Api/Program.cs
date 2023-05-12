@@ -19,6 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbcontext>
     (options => options
     .UseSqlServer(builder.Configuration.GetConnectionString("GamesDb")));
+builder.Services.AddCors();
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options =>
     {
     //for testing purposes only!!
@@ -116,6 +117,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
+app.UseCors(options =>
+{
+    options.AllowAnyOrigin();
+    options.AllowAnyHeader();
+    options.AllowAnyMethod();
+});
 app.UseAuthorization();
 app.UseStaticFiles();
 app.MapControllers();

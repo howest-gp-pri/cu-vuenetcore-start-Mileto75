@@ -12,7 +12,7 @@ namespace Pri.Ca.Api.DTOs.Account
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
-        [Compare("password")]
+        [Compare("Password")]
         [Required]
         public string CheckPassword { get; set; }
     }

@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Pri.Ca.Api.DTOs.Account;
 using Pri.Ca.Core.Entities;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace Pri.Ca.Api.Controllers
@@ -61,9 +62,36 @@ namespace Pri.Ca.Api.Controllers
             return Ok(serializedToken);
         }
         [HttpPost("Register")]
-        public IActionResult Register(AccountRegisterRequestDto accountRegisterRequestDto)
+        public async Task<IActionResult> Register(AccountRegisterRequestDto accountRegisterRequestDto)
         {
-            return Ok();
+            var user = await _userManager.FindByNameAsync(accountRegisterRequestDto.Username);
+            List<IdentityResult> identityResults = new();
+            if(user == null)
+            {
+                user = new ApplicationUser 
+                {
+                    Firstname = accountRegisterRequestDto.Firstname,
+                    Lastname = accountRegisterRequestDto.Lastname,
+                    UserName = accountRegisterRequestDto.Username,
+                    Email = accountRegisterRequestDto.Username,
+                    DateOfBirth = accountRegisterRequestDto.DateOfBirth,
+                };
+                identityResults.Add(await _userManager.CreateAsync(user, accountRegisterRequestDto.Password));
+                if(identityResults.All(ie => ie.Succeeded))
+                {
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Role,"user"),
+                        new Claim(ClaimTypes.DateOfBirth,user.DateOfBirth.ToShortDateString()),
+                    };
+                    identityResults.Add(await _userManager.AddClaimsAsync(user, claims));
+                }
+                if(identityResults.Any(ie => ie.Succeeded != false))
+                {
+                    return BadRequest("Something went wrong, please try again later...");
+                }
+            }
+            return BadRequest("Username taken");
         }
     }
 }

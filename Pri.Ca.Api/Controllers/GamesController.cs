@@ -12,16 +12,18 @@ namespace Pri.Ca.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class GamesController : ControllerBase
     {
         private readonly IGameService _gameService;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public GamesController(IGameService gameService, IMapper mapper)
+        public GamesController(IGameService gameService, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _gameService = gameService;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet]
@@ -34,7 +36,7 @@ namespace Pri.Ca.Api.Controllers
             {
                 return NotFound(result.ValidationErrors);
             }
-            return Ok(result.Items.MapToDto());
+            return Ok(result.Items.MapToDto(_httpContextAccessor));
             //return Ok(_mapper.Map<GamesResponseDto>(result.Items));
         }
         [HttpGet("{id:int}")]
@@ -46,7 +48,7 @@ namespace Pri.Ca.Api.Controllers
             {
                 return NotFound(result.ValidationErrors);
             }
-            return Ok(result.Items.First().MaptoDto());
+            return Ok(result.Items.First().MaptoDto(_httpContextAccessor));
             //return Ok(_mapper.Map<GameResponseDto>(result.Items.First()));
         }
         [HttpPost]
