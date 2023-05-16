@@ -7,6 +7,7 @@ using Pri.Ca.Api.DTOs.Games;
 using Pri.Ca.Api.Extensions;
 using Pri.Ca.Core.Interfaces.Services;
 using Pri.Ca.Core.Services;
+using System.Security.Claims;
 
 namespace Pri.Ca.Api.Controllers
 {
@@ -27,8 +28,11 @@ namespace Pri.Ca.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get()
         {
+            //get the userId from authenticated user
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value; ;
             //get the games  
             var result = await _gameService.GetAllAsync();
             //check for errors

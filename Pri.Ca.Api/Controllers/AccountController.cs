@@ -82,14 +82,17 @@ namespace Pri.Ca.Api.Controllers
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Role,"user"),
+                        new Claim(ClaimTypes.NameIdentifier,user.Id),
+                        new Claim(ClaimTypes.Name,user.UserName),
                         new Claim(ClaimTypes.DateOfBirth,user.DateOfBirth.ToShortDateString()),
                     };
                     identityResults.Add(await _userManager.AddClaimsAsync(user, claims));
                 }
-                if(identityResults.Any(ie => ie.Succeeded != false))
+                if(identityResults.Any(ie => ie.Succeeded == false))
                 {
                     return BadRequest("Something went wrong, please try again later...");
                 }
+                return Ok();
             }
             return BadRequest("Username taken");
         }
